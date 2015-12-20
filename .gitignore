@@ -1,0 +1,108 @@
+#include<iostream>
+#include<stdio.h>
+using namespace std;
+int main()
+{
+	int n,i,j,k;
+	cin >>n;
+	double A[n][n];double B[1][n];double c;int ci;double m;double b[n];int bi;double x[n];double sum;double bp;
+	for(i=0;i<n;i++)
+	{
+		for(j=0;j<n;j++)
+		{
+			cin >>A[i][j]; 
+		}
+	} 
+	for(bi=0;bi<n;bi++)
+	{
+		cin >>b[bi];
+	}
+    printf("the matrix is");cout <<endl;
+	for(i=0;i<n;i++)
+	{
+		for(j=0;j<n;j++)
+		{
+			cout <<A[i][j] <<' ';
+		}
+	cout <<b[i];
+	cout <<endl;
+	}
+	cout <<endl <<endl;; 
+	for(k=0;k<n;k++) 
+	{
+		for(i=k+1;i<n;i++)
+		{
+			if(A[k][k]>=A[i][k])
+			{
+				c=A[k][k];
+				ci=k;
+			}
+			else
+			{
+				c=A[i][k];
+				ci=i;
+			}
+		}
+		if(c==0)
+		{
+			printf("no unique solution");
+		}
+		if(ci!=k)
+		{
+			for(j=0;j<n;j++)
+			{
+				B[0][j]=A[ci][j];
+				A[ci][j]=A[k][j];
+				A[k][j]=B[0][j];
+			}
+			bp=b[ci];b[ci]=b[k];b[k]=bp;
+		}
+	/*	for(i=0;i<n;i++)
+	   {
+		for(j=0;j<n;j++)
+		{
+			cout <<A[i][j] <<' ';
+		}
+       	cout <<endl;
+		}
+		cout <<endl;*///测试 
+		for(i=k+1;i<n;i++)
+		{
+			m=A[i][k]/A[k][k];
+			for(j=k;j<n;j++)
+			{
+				A[i][j]=A[i][j]-A[k][j]*m;
+			}
+			b[i]=b[i]-b[k]*m;
+		}
+	}
+	for(i=0;i<n;i++)
+	{
+		for(j=0;j<n;j++)
+		{
+			cout <<A[i][j] <<' ';
+		}
+	cout <<b[i];
+	cout <<endl;
+	}
+	cout <<endl <<endl;
+    if(A[n-1][n-1]==0)
+    {
+    	printf("no unique solution");
+	}
+	x[n-1]=b[n-1]/A[n-1][n-1];
+	for(i=n-2;i>=0;i--) 
+	{
+		sum=0;
+		for(j=i+1;j<n;j++)
+		{
+			sum=sum+A[i][j]*x[j];
+		}
+		x[i]=(b[i]-sum)/A[i][i];
+	}
+	for(i=0;i<n;i++)
+	{
+		cout <<x[i] <<endl;
+	}
+	return 0;
+ } 
